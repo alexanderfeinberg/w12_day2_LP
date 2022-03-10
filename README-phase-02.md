@@ -11,8 +11,9 @@ request for a list of students.
 In the `GET /students` route handler, read and parse the `page` & `size` params
 from the query parameters.
 
-By default, the `page` should be `1` and `size` should be `10`. If the page/size
-is not a number, use the default page/size.
+By default, the `page` should be `1` and `size` should be `10`. 
+
+If the page/size is not a number, then use the default page/size.
 
 ## Phase 2B: Calculate the limit and offset
 
@@ -21,21 +22,22 @@ Based on the determined `page` and `size` values, calculate the `limit` and the
 
 First, check to see if `page` and `size` are valid values.
 
-Translate this prompt into determining what are valid values for `page` and
-`size`:
+Next, determine valid values for `page` and `size`:
 
 > Query result pages must start at page 1, and you must specify at least
 > maximum of one result to be returned from the query. On a single page, you
 > should not be able to see more than 200 results.
 
-If the `page` and `size` are valid values, then proceed with calculating `limit`
-and `offset`.
+If the `page` and `size` are valid values, calculate `limit` and `offset`.
 
 > Refer to your readings if you need a refresher on the calculations.
 
-If the `page` and `size` are NOT valid values, then, in the `errorResult`
-object, add an error message of `'Requires valid page and size params'` to the
-`errorResult.errors` array.
+If the `page` and `size` are NOT valid values, add an error message: 
+
+- Add the message to the `errorResult.errors` array, in the `errorResult` object.
+- The message should be: `'Requires valid page and size params'` 
+
+### Result
 
 The `errorResult` object should look like this after adding the message:
 
@@ -56,7 +58,9 @@ will probably be very slow).
 If the `page` is `0` and the `size` is `0`, then allow developers to see all the
 data (no `limit` or `offset`).
 
-Example: A request to `GET /students?page=0&size=0` should return all students.
+#### Result
+
+A request to `GET /students?page=0&size=0` should return all students.
 
 ## Phase 2C: Error handling
 
@@ -66,13 +70,14 @@ there were any error messages added to `errorResult.errors`.
 If there are messages in `errorResult.errors`, like when a request comes in with
 an invalid `page` or `size` value, formulate and send an error response.
 
-The status code of the error response should be `400` (Bad Request).
-
-The body of the response should be the `errorResult` object.
+- The status code of the error response should be `400` (Bad Request).
+- The body of the response should be the `errorResult` object.
 
 ## Phase 2D: Add limit and offset to the query
 
 Finally, add the calculated `limit` and `offset` to the query options.
+
+### Result
 
 Test the `GET /students` endpoint with many different page and size query
 parameter values. Make sure you test it with invalid page and size values too!

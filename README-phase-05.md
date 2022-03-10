@@ -1,5 +1,10 @@
 # Basic Phase 5: Aggregation
 
+In the `GET /classrooms/:id` endpoint, you want to concisely display the data
+for a single classroom.
+
+## Discussion: Two Common Approaches
+
 Users like applications that let them know how many items are associated with
 other items. For example, when looking at a list of classrooms, users are
 probably wondering how many students are assigned to each one.
@@ -46,32 +51,51 @@ The response data is currently the classroom returned from the query in the
 route handler.
 
 Set a property on the response data of `supplyCount` that represents the total
-number of supplies for that classroom returned.
+number of supplies for that classroom returned. You can accomplish this by using
+**ONE** of the three options below.
 
-Test the endpoint to make sure that the `supplyCount` key is set correctly for
-a classroom specified by the `id` route parameter.
+### Three options to display the `supplyCount`
 
 You will not be able to see the `supplyCount` in the data returned from the
 response if you tried to set the `supplyCount` directly on the `Classroom`
 object and returned the `Classroom` object. Here are **THREE OPTIONS** you can
 take to display the `supplyCount` on the `Classroom` object:
 
-1) Convert the `Classroom` object into a POJO using the `.toJSON()` method
-   and set the `supplyCount` property onto the POJO and return the POJO.
-2) Set the query options of `raw: true` on the query to skip the conversion and
-   return a POJO directly from the query. (Note: if you add associations to
-   include in this query, this option will **NOT** display the associations
-   properly.) You can set the `supplyCount` directly on the query result.
-3) Set the `supplyCount` as a [Sequelize Virtual Field] on the `Classroom` model
-   so that the `supplyCount` will be sent with the response if you set the
-   `supplyCount` as a property on the `Classroom` object. No need to convert it
-   to JSON before calling `res.json()`! (Note: you don't need a getter or setter
-   methods for this implementation, just the `DataTypes.VIRTUAL` type
-   definition.)
+1) Convert the query result object to POJO:
 
-The first classroom (`id` of `1`) should have `19` supplies.
+   - Convert the `Classroom` object into a POJO using the `.toJSON()` method
+   - Set the `supplyCount` property onto the POJO 
+   - Return the POJO.
 
-The second classroom (`id` of `2`) should have `14` supplies.
+**OR**
+
+2) Return a POJO directly
+
+   - Set the query options of `raw: true` on the query to skip the conversion and
+   return a POJO directly from the query. 
+      - *Note: if you add associations to include in this query, this option
+        will **NOT** display the associations properly.* 
+   - Set the `supplyCount` directly on the query result.
+
+**OR**
+
+3) Use a [Sequelize Virtual Field]
+
+   - Set the `supplyCount` as a [Sequelize Virtual Field] on the `Classroom`
+     model
+      - This will allow the `supplyCount` to be sent with the response if you
+   set the `supplyCount` as a property on the `Classroom` object. 
+      - You do NOT need to convert it to JSON before calling `res.json()`! 
+      - You do NOT need a getter or setter method for this implementation, just
+      the `DataTypes.VIRTUAL` type definition.
+
+### Result
+
+Test the endpoint to make sure that the `supplyCount` key is set correctly for
+a classroom specified by the `id` route parameter.
+
+- The first classroom (`id` of `1`) should have `19` supplies.
+- The second classroom (`id` of `2`) should have `14` supplies.
 
 ## Phase 5B: Classroom's student count
 
@@ -84,47 +108,63 @@ route parameter has.
 > of students of a classroom should be calculated by examining how many
 > `StudentClassroom` records are connecting that classroom to its students.
 
-Set a property on the response data of `studentCount` that represents the total
-number of students for that classroom returned.
+Set a property on the response data of `studentCount`. This will represent the
+total number of students for that classroom.
+
+### Result
 
 Test the endpoint to make sure that the `studentCount` key is set correctly and
 is displayed for a classroom specified by the `id` route parameter.
 
-Note: You may have similar display issues as `supplyCount` that you may have to
+> You may have similar display issues as `supplyCount` that you may have to
 solve in a similar way.
+
+- The first classroom (`id` of `1`) has `27` students  
+- The second classroom (`id` of `2`) has `22` students
 
 ## Phase 5C: Is classroom overloaded?
 
 Compare the classroom's `studentLimit` with the classroom's total student count.
-If the total student count is greater than the `studentLimit`, return a property
-of `overloaded` to `true` in the body of the response. If the total student
-count is less than the `studentLimit`, set `overloaded` to `false`.
 
-Test the endpoint to make sure that the `overloaded` key is set correctly and
+If the total student count is *greater than* the `studentLimit`, return a
+property of `overloaded` to `true` in the body of the response. 
+
+If the total student count is *less than* the `studentLimit`, set `overloaded`
+to `false`.
+
+### Result
+
+Test the endpoint to make sure that the `overloaded` key is set correctly, and
 is displayed for a classroom specified by the `id` route parameter.
 
-Note: You may have similar display issues as `overloaded` that you may have to
+> You may have similar display issues as `supplyCount` that you may have to
 solve in a similar way.
 
-The first classroom (`id` of `1`) has `27` students but has a student limit of
+- The first classroom (`id` of `1`) has `27` students but has a student limit of
 `24`, so it is overloaded.
-
-The second classroom (`id` of `2`) has `22` students but has a student limit of
-`24`, so it is NOT overloaded.
+- The second classroom (`id` of `2`) has `22` students but has a student limit
+of `24`, so it is NOT overloaded.
 
 ## OPTIONAL Phase 5D: Average Grade for Classroom
 
-Find the average student grade of the classroom. The grade of each student in
-the classroom is stored as an attribute of `grade` on the `StudentClassroom`
-connecting the `Classroom` and the `Student` (See the database diagram for
-an overview of their relationships). The average student grade of the classroom
-is the average of the `grade` attribute on all `StudentClassroom`s that have a
-`classroomId` attribute matching the `id` of the `Classroom`.
+Find the average student grade of the classroom. 
 
-Find the average student grade of the classroom by making an aggregate query on
-the `StudentClassroom` and narrowing down the query results to a specific
-`classroomId`. Set the value of the average grade for the specified classroom
+The grade of each student in the classroom is stored as an attribute of `grade`
+on the `StudentClassroom` that connects the `Classroom` and the `Student` (See
+the database diagram for an overview of their relationships). The average
+student grade of the classroom is the average of the `grade` attribute on all
+`StudentClassroom`s that have a `classroomId` attribute matching the `id` of the
+`Classroom`.
+
+Find the average student grade of the classroom:  
+
+- Make an aggregate query on the `StudentClassroom` and narrow down the query
+results to a specific `classroomId`.   
+  
+- Set the value of the average grade for the specified classroom
 as a property of `avgGrade` to the classroom returned as the response.
+
+### Result
 
 The response for a classroom with an `id` of `1` should look like this:
 

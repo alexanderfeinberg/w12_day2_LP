@@ -1,26 +1,32 @@
 # Advanced Phase 10: To Aggregate or Not to Aggregate
 
-Aggregates done in a single query or few queries are always more efficient than
-querying data and then calculating the aggregate data values in JavaScript.
+In this phase, you will be working with aggregates again. You will make
+decisions about efficiency as well as time management as a developer.
 
-However, formulating a proper aggregate query is sometimes difficult and quite
-tricky. Depending on the results and how often the query is run on the server,
-development of the endpoint may be much faster and sufficient enough that you
-don't need to focus too much on efficiency.
+## Discussion: Balancing Efficiency with Developer Time
+
+Aggregates done in a single query, or a small number of queries, are always more
+efficient than querying data and then calculating the aggregate data values in
+JavaScript.
+
+However, formulating a proper aggregate query is sometimes difficult. Developers
+often have to consider trade-offs between optimizing for efficiency, and the
+incresed developer time it takes to do that. If the size of the results is small
+and the query is not run very often, developers may choose not to focus
+additional developer time on increasing efficiency.
 
 In this practice, you are encouraged to use SQL aggregates and avoid N + 1
-queries to return the following data points. **However**, time-box the amount of
-time you spend doing this.
+queries to return the following data points. **However**, you should time-box
+the amount of time you spend doing this.
 
-The senior developer on your team suggests to time-box formulating an aggregate
-query after `10 minutes` for a single data point, then don't restrict yourself
-to using N + 1 queries after those `10 minutes`.
+The senior developer on your team asks you to time-box formulating an aggregate
+query to `10 minutes` for a single data point.
 
-In summary, for `10 minutes`, attempt to form an aggregate query without N + 1
+This means: For `10 minutes`, attempt to form an aggregate query without N + 1
 queries or JavaScript calculations for the desired data point. If you don't see
-what you expect to see in the results after `10 minutes`, then use N + 1 queries
-or JavaScript calculations or whatever you need to do to get that data point
-returned.
+what you expect to see in the results after `10 minutes`, then you can use N + 1
+queries or JavaScript calculations, or whatever you need to do, to get that data
+point returned.
 
 Efficiently working code is better working code. But working code, no matter how
 inefficient is **ALWAYS** better than non-working code at all!
@@ -30,10 +36,10 @@ this phase.
 
 ## Phase 10A: Current Number of Scissors for All Classrooms
 
-Supplies in the database can be for either left-handed or right-handed supplies.
+Supplies in the database can be for either left-handed or right-handed students.
 
-However, all the supplies in the database besides two can be used by both
-right-handed and left-handed students.
+However, **most** supplies in the database can be used by both
+right-handed and left-handed students. Scissors are the only exception.
 
 Supplies with the `name` of "Safety Scissors" can either be right-handed or
 left-handed.
@@ -67,21 +73,23 @@ but different `handed` attributes.
 ```
 
 The administration of the school using your frontend client would like to know
-the total number of scissors that a classroom currently has. They would like to
-know how many right-handed scissors and left-handed scissors there are in all
-classrooms combined.
+the total number of scissors that a classroom currently has. They would also
+like to know how many right-handed scissors and left-handed scissors there are
+in all classrooms combined.
 
-In the response returned from the `GET /supplies/scissors/calculate` endpoint,
+- In the response returned from the `GET /supplies/scissors/calculate` endpoint,
 return the `result` object with a property of `numRightyScissors` that has
 a value equal to the number of "Safety Scissors" supplies that are
 "right"-`handed`.
 
-Set another property on the `result` of `numLeftyScissors` that has a value
+- Set another property on the `result` of `numLeftyScissors` that has a value
 equal to the number of "Safety Scissors" supplies that are "left"-`handed`.
 
-Set another property on the `result` of `totalNumScissors` that has a value
+- Set another property on the `result` of `totalNumScissors` that has a value
 equal to the number of "Safety Scissors" supplies **regardless** of if they are
 right or left-handed.
+
+### Result
 
 You should see these totals representing the seed data aggregates:
 
@@ -106,11 +114,13 @@ different from the total number of students in the database. Each student in the
 database could be enrolled in multiple courses. You need to know how many
 students are in each classroom, then add those numbers up.
 
-Set another property on the `result` of `numRightHandedStudents` that has a
+- Set another property on the `result` of `numRightHandedStudents` that has a
 value equal to the total number of right-handed students in all the classrooms.
 
-Set another property on the `result` of `numLeftHandedStudents` that has a
+- Set another property on the `result` of `numLeftHandedStudents` that has a
 value equal to the total number of left-handed students in all the classrooms.
+
+### Result
 
 For these numbers, a good way to check if your numbers are correct is to add
 `numRightHandedStudents` and `numLeftHandedStudents` and verify that they are
@@ -135,14 +145,16 @@ The administration would also like to see a calculation of how many scissors
 they still need to purchase for all the classrooms to make sure each student
 in every classroom can have access to a scissor.
 
-Set another property on the `result` of `numRightHandedStudents` that has a
+- Set another property on the `result` of `numRightHandedStudents` that has a
 value equal to the total number of right-handed students in all the classrooms.
 This number can be calculated by comparing the total number of right-handed
 scissors in all classrooms to the total number of right-handed students in all
 classrooms.
 
-Set another property on the `result` of `numLeftHandedStudents` that has a
+- Set another property on the `result` of `numLeftHandedStudents` that has a
 value equal to the total number of left-handed students in all the classrooms.
+
+### Result
 
 You should now see these totals representing the seed data aggregates:
 

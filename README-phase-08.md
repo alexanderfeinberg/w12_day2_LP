@@ -14,29 +14,32 @@ to be ordered by the name of the classroom first. This means that all supplies
 for the first classroom should be at the top of the supplies returned from
 this endpoint.
 
-Manipulate the query as follows.
+Manipulate the query as follows:
 
 First, include the classroom as associated data for each supply returned as
 the response.
 
-Each `Classroom` should only have the attributes: `id`, and `name`.
+- Each `Classroom` should only have the attributes: `id`, and `name`.
 
 Then, order the supplies by the `name` of the classroom first, THEN the `name`
 of the supply.
 
+### Result
+
 Test your endpoint to check if your results have been ordered correctly.
 
-You should see `4` supplies with no classroom at the top of the results. Then,
-you should see `4` supplies for a classroom with the name of "Mr. Collins" next.
+- You should see `4` supplies with no classroom at the top of the results. 
+- Then, you should see `4` supplies for a classroom with the name of "Mr.
+  Collins" next.
 
-After adding ordering based on this association, does the order of classroom
-`name` over supply `name` matter? Why or why not? What will change if you switch
-the ordering so you order the results by supply `name` first, then by classroom
-`name`?
+>Consider: After adding ordering based on this association, does the order of
+classroom `name` over supply `name` matter? Why or why not? What will change if
+you switch the ordering so you order the results by supply `name` first, then by
+classroom `name`?
 
 ## Phase 8B: `GET /students`
 
-Sometimes, you want to order a belongs-to-many associated data by the table that
+Sometimes, you want to order belongs-to-many associated data by the table that
 it is going `through`.
 
 Examine the query used in the `GET /students` route handler. Your frontend team
@@ -45,18 +48,20 @@ would like this endpoint to have the `Student` list returned and include the
 the `grade` attribute on the `StudentClassroom` that connects the `Student` to
 the `Classroom`.
 
-Manipulate the query as follows.
+Manipulate the query as follows:
 
 First, include the classrooms as associated data for each student returned as
 the response.
 
-Each `Classroom` should only have the attributes: `id` and `name`. Each
-`StudentClassroom` between the `Classroom` and `Student` should only have the
-`grade` attribute.
+- Each `Classroom` should only have the attributes: `id` and `name`. 
+- Each `StudentClassroom` between the `Classroom` and `Student` should only have
+the `grade` attribute.
 
 Then, order the classrooms so that the classroom that the student is performing
 best in (in terms of `grade`) are at the top. This is a little bit tricky.
 See [Sequelize docs on Ordering Eager Loaded Associations] as a reference.
+
+### Result
 
 Test your endpoint to check if your results have been ordered correctly.
 
