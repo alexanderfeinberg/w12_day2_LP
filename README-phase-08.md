@@ -26,11 +26,55 @@ of the supply.
 
 ### Result
 
-Test your endpoint to check if your results have been ordered correctly.
+Test your `GET supplies/category/Cutting` endpoint to check if your results have
+been ordered correctly.
 
-- You should see `4` supplies with no classroom at the top of the results. 
-- Then, you should see `4` supplies for a classroom with the name of "Mr.
+- You should see `2` supplies with no classroom (`null`) at the top of the
+  results. 
+- Then, you should see `2` supplies for a classroom with the name of "Mr.
   Collins" next.
+- You should see `2` supplies with the name of "Ms. Rivera" at the bottom of the
+  page.
+
+Example (first four records):
+```json
+[
+  {
+    "id": 5,
+    "category": "Cutting",
+    "name": "Safety Scissors",
+    "handed": "right",
+    "Classroom": null
+  },
+  {
+    "id": 6,
+    "category": "Cutting",
+    "name": "Safety Scissors",
+    "handed": "left",
+    "Classroom": null
+  },
+  {
+    "id": 260,
+    "category": "Cutting",
+    "name": "Safety Scissors",
+    "handed": "right",
+    "Classroom": {
+      "id": 16,
+      "name": "Mr. Collins"
+    }
+  },
+  {
+    "id": 261,
+    "category": "Cutting",
+    "name": "Safety Scissors",
+    "handed": "left",
+    "Classroom": {
+      "id": 16,
+      "name": "Mr. Collins"
+    }
+  },
+  // ...
+```
 
 >Consider: After adding ordering based on this association, does the order of
 classroom `name` over supply `name` matter? Why or why not? What will change if

@@ -145,14 +145,14 @@ The administration would also like to see a calculation of how many scissors
 they still need to purchase for all the classrooms to make sure each student
 in every classroom can have access to a scissor.
 
-- Set another property on the `result` of `numRightHandedStudents` that has a
-value equal to the total number of right-handed students in all the classrooms.
-This number can be calculated by comparing the total number of right-handed
-scissors in all classrooms to the total number of right-handed students in all
+- Set another property on the `result` of `numRightyScissorsStillNeeded` that
+represents how many additional pairs of right-handed scissors are needed. This
+number can be calculated by comparing the total number of right-handed scissors
+in all classrooms to the total number of right-handed students in all
 classrooms.
 
-- Set another property on the `result` of `numLeftHandedStudents` that has a
-value equal to the total number of left-handed students in all the classrooms.
+- Set another property on the `result` of `numLeftyScissorsStillNeeded` that
+  represents how many additional pairs of left-handed scissors are needed.
 
 ### Result
 

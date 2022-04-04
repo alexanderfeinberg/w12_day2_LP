@@ -31,8 +31,8 @@ of the results returned from the endpoint.
 
 ## Phase 1C: `GET /supplies/category/:categoryName`
 
-Order the classrooms returned from the `GET /classrooms` endpoint alphabetically
-by `name`.
+Order the classrooms returned from the `GET //supplies/category/:categoryName`
+endpoint alphabetically by `name`.
 
 ### Result
 

@@ -79,7 +79,7 @@ If all is working correctly, you should see
 `{"message":"API server is running"}`.
 
 In your browser, add __counts__ to the path:
-[http://localhost:8000/counts][localhost]
+[http://localhost:8000/counts][localhost-counts]
 
 This is a special API to verify how many records are in the database.
 If all is working correctly, you should see the following structure with these
@@ -140,6 +140,7 @@ Good luck! You can do it!!!
 [Student-Classroom-Supply-db-diagram-info]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-11/practices/Student-Classroom-Supply-db-diagram-info.txt
 
 [localhost]: http://localhost:8000/
+[localhost-counts]: http://localhost:8000/counts
 
 [docs]: https://sequelize.org/master/manual/getting-started.html#new-databases-versus-existing-databases
 

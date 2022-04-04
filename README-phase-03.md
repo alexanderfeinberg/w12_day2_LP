@@ -19,7 +19,7 @@ is the page number of the query.
 
 Add a property of `count` to the `result` object that represents the total
 number of unpaginated results that can be returned from the query with the same
-search filters.
+search filters. This can be done with a new separate query.
 
 ### Result
 

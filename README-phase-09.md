@@ -22,7 +22,9 @@ from this endpoint.
 `StudentClassroom` records associated with that `Classroom`.
 
 - Use the `include` and `group` query options to add an aggregate column value
-of `avgGrade` onto each `Classroom` record returned from the query. 
+of `avgGrade` onto each `Classroom` record returned from the query. You will
+need to [group] by `Classroom.id` in order to calculate the `avgGrade` for each
+individual classroom instead of for all classrooms
 
 - **DO NOT** use N + 1 queries to find the average grade for each `Classroom`
 record.
@@ -85,3 +87,5 @@ record.
   }
 ]
 ```
+
+[group]: https://sequelize.org/master/manual/model-querying-basics.html#grouping

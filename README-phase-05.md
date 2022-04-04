@@ -52,14 +52,14 @@ route handler.
 
 Set a property on the response data of `supplyCount` that represents the total
 number of supplies for that classroom returned. You can accomplish this by using
-**ONE** of the three options below.
+**ONE** of the two options below.
 
-### Three options to display the `supplyCount`
+### Two options to display the `supplyCount`
 
 You will not be able to see the `supplyCount` in the data returned from the
 response if you tried to set the `supplyCount` directly on the `Classroom`
-object and returned the `Classroom` object. Here are **THREE OPTIONS** you can
-take to display the `supplyCount` on the `Classroom` object:
+object and returned the `Classroom` object. Here are **TWO OPTIONS** you can
+use to display the `supplyCount` on the `Classroom` object:
 
 1) Convert the query result object to POJO:
 
@@ -77,24 +77,12 @@ take to display the `supplyCount` on the `Classroom` object:
         will **NOT** display the associations properly.* 
    - Set the `supplyCount` directly on the query result.
 
-**OR**
-
-3) Use a [Sequelize Virtual Field]
-
-   - Set the `supplyCount` as a [Sequelize Virtual Field] on the `Classroom`
-     model
-      - This will allow the `supplyCount` to be sent with the response if you
-   set the `supplyCount` as a property on the `Classroom` object. 
-      - You do NOT need to convert it to JSON before calling `res.json()`! 
-      - You do NOT need a getter or setter method for this implementation, just
-      the `DataTypes.VIRTUAL` type definition.
-
 ### Result
 
 Test the endpoint to make sure that the `supplyCount` key is set correctly for
 a classroom specified by the `id` route parameter.
 
-- The first classroom (`id` of `1`) should have `19` supplies.
+- The first classroom (`id` of `1`) should have `16` supplies.
 - The second classroom (`id` of `2`) should have `14` supplies.
 
 ## Phase 5B: Classroom's student count
