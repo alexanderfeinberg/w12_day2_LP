@@ -26,13 +26,13 @@ by `name`.
 
 Test your endpoint to check if your results have been ordered correctly.
 
-- You should see all the classrooms starting with the name of 'Mr.' at the top
+- You should see all the classrooms starting with the name of 'Mr.Collins' at the top
 of the results returned from the endpoint.
 
 ## Phase 1C: `GET /supplies/category/:categoryName`
 
-Order the classrooms returned from the `GET //supplies/category/:categoryName`
-endpoint alphabetically by `name`.
+Order the classrooms returned from the `GET /supplies/category/:categoryName`
+endpoint alphabetically by `name`, then `handed`, both in alphabetical order.
 
 ### Result
 
