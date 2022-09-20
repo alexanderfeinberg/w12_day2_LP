@@ -27,9 +27,13 @@ any `firstName` (no filter on student `firstName`).
 Test your endpoint to check if your results have been filtered correctly.
 
 For example, a `firstName` query parameter of `dexter` should return all
-students with a `firstName` of "Dexter". A `firstName` query parameter of `R%y`
-should return all students that have an `r` and a `y` with possible characters
-in between, like "Raylee" or "Royce".
+students with a `firstName` of "Dexter". There should be `17` students with the
+`firstName` of "Dexter", so the `count` property should equal `17`.
+
+A `firstName` query parameter of `R%y` should return all students that have an
+`r` and a `y` with possible characters in between, like "Raylee" or "Royce".
+There should be `34` students with the `firstName` with "Raylee" or "Royce", so
+the `count` property should equal `34`.
 
 ## Phase 4B: Last Name likeness
 
@@ -41,7 +45,7 @@ specs. The `where` object is used as the `where` clause in the option of the
 route handler's query.
 
 The `lastName` query parameter should be used in a similar way as the
-`firstName` query parameter. 
+`firstName` query parameter.
 
 If there is no `lastName` query parameter specified, return students with
 any `lastName` (no filter on student `lastName`).
@@ -51,9 +55,13 @@ any `lastName` (no filter on student `lastName`).
 Test your endpoint to check if your results have been filtered correctly.
 
 For example, a `lastName` query parameter of `costa` should return all
-students with a `lastName` of "Costa". A `lastName` query parameter of `ay`
-should return all students that have an `ay` with any number of characters
-around it, like "Aylmere" or "Hayden".
+students with a `lastName` of "Costa". There should be `14` students with the
+`lastName` of "Costa", so the `count` property should equal `14`.
+
+A `lastName` query parameter of `ay` should return all students that have an
+`ay` with any number of characters around it, like "Aylmere" or "Hayden".
+There should be `30` students with a `lastName` that fits the criteria, so the
+`count` property should equal `14`.
 
 ## Phase 4C: Is Left-handed
 
@@ -85,6 +93,11 @@ any handedness (left or right).
 Test your endpoint against all four scenarios above to check if your results
 have been filtered correctly.
 
+Also check that the `count` property is correct in the following scenarios:
 
+- There should be `25` total left-handed seeded students, so if the only search
+  filter is `lefty=true`, then `count` should be equal to `25`.
+- There should be `242` total right-handed seeded students, so if the only
+  search filter is `lefty=false`, then `count` should be equal to `242`.
 
 [op-docs]: https://sequelize.org/v5/manual/querying.html

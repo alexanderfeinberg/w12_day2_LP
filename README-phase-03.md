@@ -18,19 +18,18 @@ student records returned from the query. It also has a property of `page` that
 is the page number of the query.
 
 Add a property of `count` to the `result` object that represents the total
-number of unpaginated results that can be returned from the query with the same
-search filters. This can be done with a new separate query.
+number of **unpaginated** results that can be returned from the query. This can
+be done with a new separate query.
 
 ### Result
 
-Test your endpoint to check if your count is being displayed and is the correct
-number.
+Test your endpoint to check if your `count` is being displayed and is the
+correct number.
 
 Here are some numbers to check against:
 
-* There should be `267` total students.
-* There should be `25` left-handed students and `242` right-handed students.
-* There should be `14` students with the last name of "Alfonsi".
+* There should be `267` total students, so the `count` property returned should
+  equal `267`.
 
 ## Phase 3B: Total number of pages
 
@@ -45,11 +44,10 @@ correct number.
 
 Here are some numbers to check against:
 
-* For a size of 10, there should be `27` pages of `267` total students.
-* For a size of 12, there should be `3` pages of `25` left-handed students
-* For a size of 150, there should be `2` pages of `242` right-handed students.
-* For a size of 2, there should be `7` pages of `14` students with the last name
-  of "Alfonsi".
+* For a size of `10`, there should be `27` pages for `267` total students.
+* For a size of `12`, there should be `23` pages for `267` total students.
+* For a size of `150`, there should be `2` pages for `267` total students.
+* For a size of `2`, there should be `134` pages for `267` total students.
 
 ## OPTIONAL Phase 3C: Total number of results even in error response
 
@@ -65,7 +63,8 @@ students in the database (`267` from just the seeded data).
 
 ### Result
 
-Test your endpoint to check if your count is being displayed and is the correct
-number for an invalid query parameter.
+Test your endpoint to check if your `count` is being displayed and is equal to
+the total number of students in the database (`267`) for an invalid query
+parameter (e.g. `size=hello`).
 
 [op-docs]: https://sequelize.org/v5/manual/querying.html
