@@ -6,12 +6,43 @@ const router = express.Router();
 const { Student } = require('../db/models');
 const { Op } = require("sequelize");
 
+const checkPageSize = (query, errorResult) => {
+    let { page, size } = query
+    const res = {page:1, size:10}
+    if(page){
+        if(parseInt(page)>=0){
+            res.page = parseInt(page)
+        }else {
+            errorResult.errors.push('Requires valid page and size params')
+        }
+    }
+    if(size){
+        if(parseInt(size)>=0){
+            res.size=parseInt(size)
+        }else{
+            errorResult.errors.push('Requires valid page and size params')
+        }
+
+    }
+
+    return res
+}
+
 // List
 router.get('/', async (req, res, next) => {
     let errorResult = { errors: [], count: 0, pageCount: 0 };
 
     // Phase 2A: Use query params for page & size
     // Your code here
+    let { page, size } = checkPageSize(req.query, errorResult)
+
+    let query = {}
+    if(page>0){
+        query.offset = size*(page-1)
+    }
+    if(size>0){
+        query.limit = size
+    }
 
     // Phase 2B: Calculate limit and offset
     // Phase 2B (optional): Special case to return all students (page=0, size=0)
@@ -65,6 +96,14 @@ router.get('/', async (req, res, next) => {
     // Your code here
 
     let result = {};
+    result.page=page>0 ? page : 1
+
+    if(errorResult.errors.length){
+        res.status(400)
+        res.json(errorResult)
+    }
+
+
 
     // Phase 3A: Include total number of results returned from the query without
         // limits and offsets as a property of count on the result
@@ -74,6 +113,8 @@ router.get('/', async (req, res, next) => {
         attributes: ['id', 'firstName', 'lastName', 'leftHanded'],
         where,
         // Phase 1A: Order the Students search results
+        order:[["lastName","ASC"],["firstName","ASC"]],
+        ...query
     });
 
     // Phase 2E: Include the page number as a key of page in the response data
