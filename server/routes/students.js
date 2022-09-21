@@ -90,7 +90,7 @@ router.get('/', async (req, res, next) => {
 
     if(req.query.lastName){
         where.lastName = {
-            [Op.like]:`%${req.query.lastNAme}%`
+            [Op.like]:`%${req.query.lastName}%`
         }
     }
 
@@ -131,15 +131,24 @@ router.get('/', async (req, res, next) => {
     result.page=page>0 ? page : 1
 
     if(errorResult.errors.length){
+        let totalCount = await Student.count()
+        errorResult.count = totalCount
         res.status(400)
         res.json(errorResult)
     }
 
-
-
     // Phase 3A: Include total number of results returned from the query without
-        // limits and offsets as a property of count on the result
-        // Note: This should be a new query
+    // limits and offsets as a property of count on the result
+    // Note: This should be a new query
+
+    result.count = await Student.count({
+        where:where
+    })
+
+    result.pageCount = Math.ceil(result.count/size)
+
+
+
 
     result.rows = await Student.findAll({
         attributes: ['id', 'firstName', 'lastName', 'leftHanded'],
@@ -177,7 +186,7 @@ router.get('/', async (req, res, next) => {
         */
     // Your code here
 
-    res.json(result);
+    if(!errorResult.errors.length) res.json(result);
 });
 
 // Export class - DO NOT MODIFY
