@@ -13,14 +13,20 @@ const checkPageSize = (query, errorResult) => {
         if(parseInt(page)>=0){
             res.page = parseInt(page)
         }else {
+            if(!res.error){
+            res.error = true
             errorResult.errors.push('Requires valid page and size params')
+            }
         }
     }
     if(size){
         if(parseInt(size)>=0){
             res.size=parseInt(size)
         }else{
-            errorResult.errors.push('Requires valid page and size params')
+            if(!res.error){
+                res.error = true
+                errorResult.errors.push('Requires valid page and size params')
+                }
         }
 
     }
@@ -76,6 +82,32 @@ router.get('/', async (req, res, next) => {
     const where = {};
 
     // Your code here
+    if(req.query.firstName){
+        where.firstName = {
+            [Op.like]:req.query.firstName
+        }
+    }
+
+    if(req.query.lastName){
+        where.lastName = {
+            [Op.like]:`%${req.query.lastNAme}%`
+        }
+    }
+
+    if(req.query.lefty){
+        let lefty  = req.query.lefty
+        console.log(lefty)
+        if(lefty !== 'true' && lefty!=='false'){
+            errorResult.errors.push("Lefty should be either true or false")
+        }else{
+            if(lefty === 'true'){
+                where.leftHanded=true
+            }else{
+                where.leftHanded=false
+            }
+        }
+    }
+
 
 
     // Phase 2C: Handle invalid params with "Bad Request" response
@@ -111,7 +143,7 @@ router.get('/', async (req, res, next) => {
 
     result.rows = await Student.findAll({
         attributes: ['id', 'firstName', 'lastName', 'leftHanded'],
-        where,
+        where:where,
         // Phase 1A: Order the Students search results
         order:[["lastName","ASC"],["firstName","ASC"]],
         ...query
